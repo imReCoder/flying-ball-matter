@@ -95,7 +95,7 @@ function createBladesZone(startX) {
 
       const blade = Bodies.rectangle(x, y, 150, 20, {
         isStatic: true,
-        angle: Math.random() * Math.PI,
+        angle: 0,
         label: 'blade',
         render: { fillStyle: color }
       });
