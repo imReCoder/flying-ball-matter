@@ -42,7 +42,7 @@ const render = Render.create({
         width: window.innerWidth,
         height: window.innerHeight - 10,
         wireframes: false,
-        background: '#000000FF'
+        background: 'transparent'
     }
 });
 
@@ -165,23 +165,6 @@ Events.on(engine, 'afterUpdate', () => {
   
 
 const balls = [];
-
-
-function rotateWorld(angle, origin) {
-    const bodies = Composite.allBodies(world);
-
-    bodies.forEach(body => {
-        Body.rotate(body, angle);
-        const dx = body.position.x - origin.x;
-        const dy = body.position.y - origin.y;
-
-        const rotatedX = origin.x + (dx * Math.cos(angle) - dy * Math.sin(angle));
-        const rotatedY = origin.y + (dx * Math.sin(angle) + dy * Math.cos(angle));
-
-        Body.setPosition(body, { x: rotatedX, y: rotatedY });
-    });
-}
-
 
   Events.on(engine, 'beforeUpdate', () => {
     rotatingBlades.forEach(blade => {
