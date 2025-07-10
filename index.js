@@ -2,6 +2,12 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events, Composite } = Matter;
 
 const canvas = document.getElementById('canvas');
+const score = document.getElementById('score');
+const livesDisplay = document.getElementById('lives');
+let lives = 3;
+
+
+
 const ballColors = [
     '#FF5733', '#33FF57', '#3357FF', '#FF33A8', '#FF8F33',
     '#8F33FF', '#33FFF5', '#F5FF33', '#FF3333', '#33FF8F',
@@ -151,7 +157,10 @@ Events.on(engine, 'afterUpdate', () => {
       }
     });
 
-    
+    // update score
+    const scoreValue = Math.floor((gameBall.position.x ) / 10);
+    score.textContent = `${scoreValue}`;
+    cleanupOffscreenBodies(cameraOffsetX);
   });
   
 
@@ -187,11 +196,13 @@ Events.on(engine, 'collisionStart', (event) => {
       const labels = [pair.bodyA.label, pair.bodyB.label];
   
       if (labels.includes('ball') && labels.includes('ground')) {
-        // alert with restart
-        alert('Game Over! Restarting...');
-        // Restart the game
-        // refresh
-        window.location.reload();
+        lives--;
+        if (lives < 0) {
+            // Game over logic
+            alert('Game Over! Restarting...');
+            window.location.reload();
+        } 
+        livesDisplay.textContent = `${lives}`;
 
       }
     });
